@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup and Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+  * Modal styles */
+.modal {
+    display: flex; /*none;*/
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    color:red;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    position: relative;
+    left: 25%; /* Adjust this value to move the modal more to the right */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+    /* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #7d2ae8;
+  padding: 30px;
+}
+
+.container {
+  position: relative;
+  max-width: 850px;
+  width: 100%;
+  background: #fff;
+  padding: 40px 30px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  perspective: 2700px;
+}
+
+.container .cover {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  z-index: 98;
+  transition: all 1s ease;
+  transform-origin: left;
+  transform-style: preserve-3d;
+}
+
+.container #flip:checked~.cover {
+  transform: rotateY(-180deg);
+}
+
+.container .cover .front,
+.container .cover .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.cover .back {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  opacity: 1;
+  z-index: 100;
+}
+.cover .front{
+  backface-visibility: hidden;
+  opacity: 1;
+  z-index: 100;
+}
+.container .cover::before,
+.container .cover::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #7d2ae8;
+  opacity: 0.5;
+  z-index: 12;
+}
+
+.container .cover::after {
+  opacity: 0.5;
+  transform: rotateY(180deg);
+
+}
+
+.container .cover img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 12;
+  backface-visibility:hidden;
+}
+.container .cover .back .backImg{
+ /*transform: rotate(180deg);*/
+
+}
+.container .cover .text {
+  position: absolute;
+  z-index: 130;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+}
+.cover .text .text-1,
+.cover .text .text-2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+.cover .text .text-2 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.container .form{
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+
+.container .form-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-content .login-form,
+.form-content .signup-form {
+  width: calc(100% / 2 - 25px);
+}
+
+.forms .form-content .title {
+  position: relative;
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+}
+
+.forms .form-content .title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 25px;
+  background: #7d2ae8;
+}
+
+.forms .signup-form .title:before {
+  width: 20px;
+}
+
+.forms .form-content .input-boxes {
+  margin-top: 30px;
+}
+
+.forms .form-content .input-box {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+}
+
+.form-content .input-box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.form-content .input-box input:focus,
+.form-content .input-box input:valid {
+  border-color: #7d2ae8;
+}
+
+.form-content .input-box i {
+  position: absolute;
+  color: #7d2ae8;
+  font-size: 17px;
+}
+
+.forms .form-content .text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.forms .form-content .text a {
+  text-decoration: none;
+}
+
+.forms .form-content .text a:hover {
+  text-decoration: underline;
+}
+
+.forms .form-content .button {
+  color: #fff;
+  margin-top: 40px;
+}
+
+.forms .form-content .button input {
+  color: #fff;
+  background: #7d2ae8;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.forms .form-content .button input:hover {
+  background: #5b13b9;
+}
+
+.forms .form-content label {
+  color: #5b13b9;
+  cursor: pointer;
+}
+
+.forms .form-content label:hover {
+  text-decoration: underline;
+}
+
+.forms .form-content .login-text,
+.forms .form-content .sign-up-text {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.container #flip {
+  display: none;
+}
+
+@media (max-width: 730px) {
+  .container .cover {
+    display: none;
+  }
+
+  .form-content .login-form,
+  .form-content .signup-form {
+    width: 100%;
+  }
+
+  .form-content .signup-form {
+    display: none;
+  }
+
+  /*.container #flip:checked~.forms .signup-form {
+    display: block;
+  }
+
+  .container #flip:checked~.forms .login-form {
+    display: none;*/
+  }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="/static/demand/images/frontImg.jpg" alt="">
+        <div class="text">
+          <span class="text-1">Your secure gateway<br>to seamless Public Services,</span>
+          <!--<span class="text-2">Login now</span>-->
+        </div>
+      </div>
+      <div class="back">
+        <img class="backImg" src="/static/demand/images/backImg.jpg" alt="">
+        <div class="text">
+         <span class="text-1">Unlock the door<br>to efficient Governance,</span>
+          <!--<span class="text-2">Signup now</span>-->
+        </div>
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Login</div>
+          <form id="loginForm" action="{% url 'login' %}" method="POST" onsubmit=" ">
+            {% csrf_token %}
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" name="email" placeholder="Enter your email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Enter your password" required>
+              </div>
+              <!--<div class="text"><a href="#">Forgot password?</a></div>-->
+              <div class="button input-box">
+                <input type="submit" value="Login">
+              </div>
+              <div class="text sign-up-text">Don't have an account? <label for="flip">Signup now</label></div>
+            </div>
+        </form>
+      </div>
+          <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-message"></p>
+    </div>
+      </div>
+        <div class="signup-form">
+          <div class="title">Signup</div>
+        <form id="signupForm" action="{% url 'signup' %}" method="POST" onsubmit=" ">
+           {% csrf_token %}
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+               <input type="text" id="username" name="username" placeholder="Enter your username" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" id="email" name="email" placeholder="Enter your email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+              </div>
+              <div class="button input-box">
+                <input type="submit" value="Signup">
+              </div>
+              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+            </div>
+      </form>
+    </div>
+    </div>
+    </div>
+  </div>
+<script>
+    const signupForm = document.getElementById('signupForm');
+const modal = document.getElementById('modal');
+const modalMessage = document.getElementById('modal-message');
+const closeModal = document.getElementsByClassName('close')[0];
+
+signupForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(signupForm);
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    fetch('/signup/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        let errorMessage = '';
+        if (data.username_error) {
+            errorMessage += data.username_error + '<br>';
+        }
+
+        if (data.email_error) {
+            errorMessage += data.email_error + '<br>';
+        }
+
+        if (errorMessage) {
+            modalMessage.innerHTML = errorMessage;
+            modal.style.display = 'block';
+        } else {
+            // Redirect to login page or perform other actions
+            window.location.href = '/login/';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+closeModal.onclick = function() {
+    modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+   /*const signupForm = document.getElementById('signupForm');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const usernameError = document.getElementById('username-error');
+    const emailError = document.getElementById('email-error');
+
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(signupForm);
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+        fetch('/signup/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.username_error) {
+                usernameError.textContent = data.username_error;
+            } else {
+                usernameError.textContent = '';
+            }
+
+            if (data.email_error) {
+                emailError.textContent = data.email_error;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (!data.username_error && !data.email_error) {
+                // Redirect to login page or perform other actions
+                window.location.href = '/login/';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });*/
+
+
+  const usernameInput = document.getElementById('username');
+  const emailInput = document.getElementById('email');
+  const usernamePlaceholder = usernameInput.placeholder;
+  const emailPlaceholder = emailInput.placeholder;
+
+  // Validate username
+  usernameInput.addEventListener('input', function() {
+    const username = this.value;
+    const usernamePattern = /^[a-zA-Z][a-zA-Z0-9_]*$/;
+
+    if (!usernamePattern.test(username)) {
+      this.setCustomValidity('Username should start with a letter and contain only letters, numbers, and underscores.');
+    } else {
+      this.setCustomValidity('');
+    }
+  });
+
+  usernameInput.addEventListener('invalid', function() {
+    this.setCustomValidity(usernamePlaceholder);
+  });
+
+  // Validate email
+  emailInput.addEventListener('input', function() {
+    const email = this.value;
+    const emailPattern = /^[\w\.-]+@[\w\.-]+\.\w+$/;
+
+    if (!emailPattern.test(email)) {
+      this.setCustomValidity('Enter a valid email address.');
+    } else {
+      this.setCustomValidity('');
+    }
+  });
+
+  emailInput.addEventListener('invalid', function() {
+    this.setCustomValidity(emailPlaceholder);
+  });
+  const passwordInput = document.getElementById('password');
+  const passwordPlaceholder = passwordInput.placeholder;
+
+  passwordInput.addEventListener('input', function() {
+    const password = this.value;
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-]).*$/;
+
+    if (password.length < 8 || !passwordPattern.test(password)) {
+      this.setCustomValidity('Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+    } else {
+      this.setCustomValidity('');
+    }
+  });
+
+  passwordInput.addEventListener('invalid', function() {
+    this.setCustomValidity(passwordPlaceholder);
+  });
+</script>
+</body>
+</html>

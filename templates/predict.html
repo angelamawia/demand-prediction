@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Demand Prediction</title>
+    {% load static %}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'demand/images/aiimage.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: transparent;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 20%;
+            height: auto;
+            font: strong;
+            size: 3em;
+            background-color: transparent;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 10px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: BLACK;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: transparent;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #ca5cdd;
+            margin: 0 10px;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .input-values {
+            display: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .input-values h3 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .input-values ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .input-values li {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .show-inputs-link {
+            color: #ca5cdd;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .show-inputs-link:hover {
+            text-decoration: underline;
+        }
+
+        .report {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .report h3 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .report ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .report li {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+    </style>
+    <script>
+        function toggleInputValues() {
+            var inputValues = document.getElementById('inputValues');
+            var report = document.getElementById('report');
+            if (inputValues.style.display === 'none' || inputValues.style.display === '') {
+                inputValues.style.display = 'block';
+                report.style.display = 'block';
+            } else {
+                inputValues.style.display = 'none';
+                report.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="{% static 'demand/images/footer-logo.png' %}" alt="My Logo" class="logo">
+        </div>
+        <button class="logout-btn" onclick="window.location.href='{% url 'logout' %}'">LOGOUT</button>
+    </nav>
+
+    <div class="container">
+        <h1>Predicted Demand</h1>
+        <h2>Predicted demand is: {{ predicted_demand }}</h2>
+        <!--<h2>Predicted maximum demand is: {{ max_demand }}</h2>-->
+        <a class="show-inputs-link" onclick="toggleInputValues()">Show Input Values</a>
+        <div class="input-values" id="inputValues">
+            <h3>Prediction Report:</h3>
+            <ul>
+                {% for key, value in input_data.items %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!--<div class="report" id="report">
+           <h3>Detailed Report:</h3>
+            <ul>
+                Add detailed report content here
+            </ul>-->
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="https://www.instagram.com/hudumakenya" target="_blank">Instagram</a>
+        <a href="https://www.twitter.com/hudumakenya" target="_blank">Twitter</a>
+        <a href="https://www.facebook.com/hudumakenya" target="_blank">Facebook</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <style>
+        body {
+              background-image: url("{% static 'demand/images/aiimage.jpg' %}");
+              background-size: cover;
+              background-repeat: no-repeat;
+              font-family: Arial, sans-serif;
+              color: #fff;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              flex-direction: column;
+              min-height: 100vh;
+            }
+
+        .content {
+              flex: 1;
+            }
+
+            header {
+              text-align: center;
+              padding: 20px 0;
+              position: relative;
+            }
+
+        header .logo {
+              position: absolute;
+              top: 20px;
+              left: 20px;
+              width: 80px;
+              height: auto;
+              background-color: transparent;
+            }
+
+        nav ul {
+              list-style-type: none;
+              padding: 0;
+              text-align: center;
+              background-color: transparent; /*rgba(255, 255, 255, 0.8);*/
+            }
+
+        nav ul li {
+              display: inline;
+              margin: 0 20px;
+            }
+
+        nav ul li a {
+              text-decoration: none;
+              color: #CA5AEC;
+              font-weight: bold;
+              font-size: 18px;
+              font-family: Arial, sans-serif;
+            }
+        nav ul li a:hover {
+              color: #fff;
+            }
+
+        main {
+              padding: 20px;
+              text-align: center;
+              background-color: transparent; /*rgba(255, 255, 255, 0.8);*/
+            }
+
+        footer {
+              text-align: center;
+              padding: 8px 0;
+              background-color: transparent; /*rgba(255, 255, 255, 0.8);*/
+              position: fixed;
+              bottom: 0;
+              width: 100%;
+            }
+
+        footer a {
+              text-decoration: none;
+              color: #CA5AEC;
+            }
+        footer a:hover {
+              color: #fff;
+            }
+    </style>
+</head>
+<body>
+    <header>
+
+        <img src="{% static 'demand/images/coatofarms.png' %}" alt="My Logo" class="logo">
+        <!--<h1>Demand Prediction System</h1>-->
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">HOME</a></li>
+
+                 <li><a href="{% url 'login' %}">LOGIN</a></li>
+
+                 <li><a href="{% url 'signup' %}">SIGNUP</a></li>
+
+        </ul>
+    </nav>
+    <main>
+        <h1>Demand Prediction System</h1>
+        <!--<p>This is the home page of your Django project.</p>-->
+    </main>
+    <footer>
+        <a href="https://twitter.com/huduma_kenya">
+            <img src="{% static 'demand/images/twitter-logo.png' %}" alt="Twitter">
+        </a>
+        <a href="https://facebook.com/hudumakenya">
+            <img src="{% static 'demand/images/facebook-logo.png' %}" alt="Facebook">
+        </a>
+        <a href="https://instagram.com/hudumakenya">
+            <img src="{% static 'demand/images/instagram-logo.png' %}" alt="Instagram">
+        </a>
+        <!--<p >&copy; 2024 Angela Mawia</p>-->
+    </footer>
+</body>
+</html>
+
+

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Demand</title>
+    {% load static %}
+    <style>
+        /* CSS styles */
+        body {
+            background-color: #fff; /*url('{% static 'demand/images/aiimage.jpg' %}');*/
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: transparent; /*rgba(0, 0, 0, 0.5);*/
+        }
+
+        .logo {
+            background-image: url('{% static 'demand/images/coatofarms.png' %}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 80px;
+            height: 80px;
+        }
+
+        .logout {
+            background-color: #F7E7CE; /*#CA5AEC;*/
+            color:#8A0DAD;
+            font: bold;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .logout:hover {
+            background-color: #fff;
+            color: #CA5AEC;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-top: 20px;
+            }
+        .left {
+            flex: 1;
+            display: flex;
+            flex-direction: column; /* Arrange items in a column */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-1 {
+            color: red; /* Text color red */
+            white-space: nowrap; /* Ensure text is in one line */
+            font-size: 50px; /* Adjust font size as needed */
+            font-weight: bold; /* Make the entire text bold */
+        }
+
+        .text-1 b {
+            display: block; /* Force 'for Huduma Service' to a new line */
+        }
+
+        .text-2 {
+            color: black; /* Text color green */
+            font-size: 24px; /* Smaller font size */
+            margin-top: 5px; /* Space between text-1 and text-2 */
+        }
+
+        .left h2 {
+            font-size: 3em;
+            background-color: transparent; /*rgba(255, 255, 255, 0.8);8*/
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .right {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            position:relative;
+            /*align-items: center;*/
+        }
+
+        .right img {
+            width: 80%;
+            max-width: 900px;
+            height: auto;
+        }
+        .caption {
+            position: absolute; /* Position the caption */
+            bottom: 0; /* Position at the bottom */
+            left: 50%; /* Position at the left side */
+            transform: translateX(-50%); /* Center the caption horizontally */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            color: white; /* Text color white */
+            padding: 10px; /* Add some padding */
+            font-size: 14px; /* Adjust font size as needed */
+            width: 80%; /* Match the width of the image */
+            max-width: 900px; /* Match the max-width of the image */
+            text-align: center; /* Center the text */
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        form {
+            background-color: #F7E7CE;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+            color: #000;
+        }
+
+        form h1 {
+            text-align: center;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form select,
+        form button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #8A0DAD;
+            color: #FFF;
+            font:strong;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #893BFF;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo"></div>
+    <a href="{% url 'logout' %}" class="logout">LOGOUT</a>
+</header>
+<div class="content">
+    <div class="left">
+        <span class="text-1"><b>Predict Demand<br>for Huduma Service</b></span>
+        <span class="text-2">Revolutionizing Public Service Delivery with <b>Data Analytics</b></span>
+    </div>
+    <div class="right">
+        <img src="{% static 'demand/images/huduma-center.jpeg' %}" alt="Huduma Image">
+        <div class="caption">Citizens queueing for Huduma Service</div>
+    </div>
+</div>
+        <div class="form-container">
+    <form method="post" action="{% url 'predict_demand' %}">
+        {% csrf_token %}
+        <h1>Fill the Form to Predict Demand</h1>
+        <!--<p>This is the main page of our web application.</p>-->
+
+                 <!--<div>
+                  <label for="stationname">Center Name:</label>
+                  <select id="stationname" name="stationname" required>
+                    <optgroup label="Nairobi County:">
+                        <option value="GPO HUDUMA CENTRE">GPO HUDUMA CENTRE</option>
+                        <option value="EASTLEIGH HUDUMA CENTRE">EASTLEIGH HUDUMA CENTRE</option>
+                        <option value="MAKADARA HUDUMA CENTRE">MAKADARA HUDUMA CENTRE</option>
+                        <option value="CITY SQUARE HUDUMA CENTRE">CITY SQUARE HUDUMA CENTRE</option>
+                        <option value="KIBRA HUDUMA CENTRE">KIBRA HUDUMA CENTRE</option>
+                    </optgroup>
+                       <option value="KIAMBU HUDUMA CENTRE (THIKA)">KIAMBU HUDUMA CENTRE (THIKA)</option>
+                       <option value="NAKURU HUDUMA CENTRE">NAKURU HUDUMA CENTRE</option>
+                       <option value="KISII HUDUMA CENTRE">KISII HUDUMA CENTRE</option>
+                       <option value="SIAYA HUDUMA CENTRE">SIAYA HUDUMA CENTRE</option>
+                       <option value="KILIFI HUDUMA CENTRE">KILIFI HUDUMA CENTRE</option>
+                       <option value="KAKAMEGA HUDUMA CENTRE">KAKAMEGA HUDUMA CENTRE</option>
+                       <option value="HOMABAY HUDUMA CENTRE">HOMABAY HUDUMA CENTRE</option>
+                       <option value="KERICHO HUDUMA CENTRE">KERICHO HUDUMA CENTRE</option>
+                       <option value="BOMET HUDUMA CENTRE">BOMET HUDUMA CENTRE</option>
+                       <option value="MIGORI HUDUMA CENTRE">MIGORI HUDUMA CENTRE</option>
+                       <option value="KITALE HUDUMA CENTRE">KITALE HUDUMA CENTRE</option>
+                       <option value="MACHAKOS HUDUMA CENTRE">MACHAKOS HUDUMA CENTRE</option>
+                       <option value="BUNGOMA HUDUMA CENTRE">BUNGOMA HUDUMA CENTRE</option>
+                       <option value="EMBU HUDUMA CENTRE">EMBU HUDUMA CENTRE</option>
+                       <option value="NANDI HUDUMA CENTRE">NANDI HUDUMA CENTRE</option>
+                       <option value="MOMBASA HUDUMA CENTRE">MOMBASA HUDUMA CENTRE</option>
+                       <option value="MERU HUDUMA CENTRE">MERU HUDUMA CENTRE</option>
+                       <option value="KITUI HUDUMA CENTRE">KITUI HUDUMA CENTRE</option>
+                       <option value="MURANGA HUDUMA CENTRE">MURANGA HUDUMA CENTRE</option>
+                       <option value="MAKUENI HUDUMA CENTRE">MAKUENI HUDUMA CENTRE</option>
+                       <option value="NYANDARUA HUDUMA CENTRE">NYANDARUA HUDUMA CENTRE</option>
+                       <option value="NYAMIRA HUDUMA CENTRE">NYAMIRA HUDUMA CENTRE</option>
+                       <option value="KWALE HUDUMA CENTRE">KWALE HUDUMA CENTRE</option>
+                       <option value="LAIKIPIA HUDUMA CENTRE">LAIKIPIA HUDUMA CENTRE</option>
+                       <option value="KAJIADO HUDUMA CENTRE">KAJIADO HUDUMA CENTRE</option>
+                        <option value="UASIN GISHU HUDUMA CENTRE">UASIN GISHU HUDUMA CENTRE</option>
+                        <option value="TAITA TAVETA HUDUMA CENTRE">TAITA TAVETA HUDUMA CENTRE</option>
+                        <option value="NAROK HUDUMA CENTRE">NAROK HUDUMA CENTRE</option>
+                        <option value="KIRINYAGA HUDUMA CENTRE">KIRINYAGA HUDUMA CENTRE</option>
+                        <option value="WAJIR HUDUMA CENTRE">WAJIR HUDUMA CENTRE</option>
+                        <option value="BUSIA HUDUMA CENTRE">BUSIA HUDUMA CENTRE</option>
+                        <option value="NYERI HUDUMA CENTRE">NYERI HUDUMA CENTRE</option>
+                        <option value="BARINGO HUDUMA CENTRE">BARINGO HUDUMA CENTRE</option>
+                        <option value="LAMU HUDUMA CENTRE">LAMU HUDUMA CENTRE</option>
+                        <option value="WEST POKOT HUDUMA CENTRE">WEST POKOT HUDUMA CENTRE</option>
+                        <option value="MANDERA HUDUMA CENTRE">MANDERA HUDUMA CENTRE</option>
+                        <option value="MARSABIT HUDUMA CENTRE">MARSABIT HUDUMA CENTRE</option>
+                        <option value="ISIOLO HUDUMA CENTRE">ISIOLO HUDUMA CENTRE</option>
+                        <option value="ELGEYO MARAKWET HUDUMA CENTRE">ELGEYO MARAKWET HUDUMA CENTRE</option>
+                        <option value="TANA RIVER HUDUMA CENTRE">TANA RIVER HUDUMA CENTRE</option>
+                        <option value="TURKANA HUDUMA CENTRE">TURKANA HUDUMA CENTRE</option>
+                        <option value="SAMBURU HUDUMA CENTRE">SAMBURU HUDUMA CENTRE</option>
+                        <option value="GARISSA HUDUMA CENTRE">GARISSA HUDUMA CENTRE</option>
+                        <option value="HUDUMA KENYA SECRETARIAT">HUDUMA KENYA SECRETARIAT</option>
+                        <option value="KISUMU HUDUMA CENTRE">KISUMU HUDUMA CENTRE</option>
+                        <option value="LAMU HUDUMA CENTRE">LAMU HUDUMA CENTRE</option>
+                        <option value="VIHIGA HUDUMA CENTRE">VIHIGA HUDUMA CENTRE</option>
+                        <option value="KAJIADO WEST HUDUMA CENTRE">KAJIADO WEST HUDUMA CENTRE</option>
+                    </optgroup>
+                  </select>
+                 </div>-->
+                 <div>
+                    <label for="Quarter">Quarter:</label>
+                    <select id="Quarter" name="quarter" required>
+                        <option value="">Select Quarter</option>
+                        <option value="Q1">Q1</option>
+                        <option value="Q2">Q2</option>
+                        <option value="Q3">Q3</option>
+                        <option value="Q4">Q4</option>
+                    </select>
+                 </div>
+         <div>
+             <label for="year">Year:</label>
+  <select id="year" name="year" required>
+    <option value="">Select Year</option>
+    <script>
+      /*const currentYear = new Date().getFullYear();*/
+      const yearSelect = document.getElementById('year');
+      const yearOptions = [2020, 2021, 2022, 2023];
+      for (let year of yearOptions) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.text = year;
+        yearSelect.add(option);
+      }
+      /*const currentYearOption = document.createElement('option');
+      currentYearOption.value = currentYear;
+      currentYearOption.text = currentYear;
+      yearSelect.add(currentYearOption);
+      const nextYear = currentYear + 1;
+      const nextYearOption = document.createElement('option');
+      nextYearOption.value = nextYear;
+      nextYearOption.text = nextYear;
+      yearSelect.add(nextYearOption);*/
+    </script>
+        <!--<label for="year">Year:</label>
+        <select id="year" name="year" required>
+          <option value="">Select Year</option>
+          <script>
+           /* // Get the current year
+            const currentYear = new Date().getFullYear();
+
+            // Get the select element
+            const yearSelect = document.getElementById('year');
+
+            // Create options for the years 2020, 2021, 2022, and 2023
+            const yearOptions = [2020, 2021, 2022, 2023];
+            for (let year of yearOptions) {
+              const option = document.createElement('option');
+              option.value = year;
+              option.text = year;
+              yearSelect.add(option);
+            }
+
+            // Create an option for the current year
+            const currentYearOption = document.createElement('option');
+            currentYearOption.value = currentYear;
+            currentYearOption.text = currentYear;
+            yearSelect.add(currentYearOption);
+
+            // Create an option for the next year
+            const nextYear = currentYear + 1;
+            const nextYearOption = document.createElement('option');
+            nextYearOption.value = nextYear;
+            nextYearOption.text = nextYear;
+            yearSelect.add(nextYearOption);*/
+          </script>-->
+        </select>
+         </div>
+          <div>
+              <label for="Service Name">Service Name:</label>
+                  <select id="Service Name" name="servicename" required>
+                      <option value="">Select Service</option>
+                    <optgroup label="National Registration Bureau (NRB)">
+                        <option value="NRB -  Application for Initial ID">NRB -  Application for Initial ID</option>
+                        <option value="NRB -  Application for Duplicate ID">NRB -  Application for Duplicate ID</option>
+                        <option value="NRB - Collection of ID">NRB - Collection of ID</option>
+                        <option value="NRB - Duplicate ID Enquiries">NRB - Duplicate ID Enquiries</option>
+                    </optgroup>
+                    <optgroup label="Civil Registration Department (CRD)">
+                        <option value="CRD - Application for Birth Certificate">CRD - Application for Birth Certificate</option>
+                        <option value="CRD - Birth Certificate Collection">CRD - Birth Certificate Collection</option>
+                        <option value="CRD - Birth Certificate Enquiries">CRD - Birth Certificate Enquiries</option>
+                        <option value="CRD - Birth Certificate Replacement">CRD - Birth Certificate Replacement</option>
+                    </optgroup>
+                       <optgroup label="Credit Reference Bureau (CRB)">
+                        <option value="CRB - Clearance Certificate">CRB - Clearance Certificate</option>
+                      </optgroup>
+                      <optgroup label="Directorate of Criminal Investigations (DCI)">
+                        <option value="DCI - Police Clearance">DCI - Police Clearance</option>
+                    </optgroup>
+                      <optgroup label="Ethics and Anti-Corruption Commission (EACC)">
+                        <option value="EACC - EACC Clearance">EACC - EACC Clearance</option>
+                    </optgroup>
+                   <optgroup label="Access to Government Procurement Opportunities (AGPO)">
+                        <option value="AGPO - AGPO Certificate">AGPO - AGPO Certificate</option>
+                    </optgroup>
+                    <optgroup label="Gender and Affirmative Action Funds (GAAFS)">
+                        <option value="GAAFS - Gender and Affirmative Action Funds">GAAFS - Gender and Affirmative Action Funds</option>
+                    </optgroup>
+                    <optgroup label="Kenya Police">
+                        <option value="KENYA-POLICE - Police Abstract">KENYA-POLICE - Police Abstract</option>
+                    </optgroup>
+                    <optgroup label="Kenya revenue authority">
+                     <option value="KRA - KRA Services">KRA - KRA Services</option>
+                     </optgroup>
+                     <optgroup label="National Transport and Safety Authority (NTSA)">
+                        <option value="NTSA - Enrolment Smart DL">NTSA - Enrolment Smart DL</option>
+                        <option value="NTSA - Bodaboda Registration">NTSA - Bodaboda Registration</option>
+                    </optgroup>
+                    <optgroup label="NAIROBICOUNTY">
+                        <option value="NAIROBICOUNTY - County Services">NAIROBICOUNTY - County Services</option>
+                        <option value="NAIROBICOUNTY - Land Rates">NAIROBICOUNTY - Land Rates</option>
+                        <option value="NAIROBICOUNTY - Rent">NAIROBICOUNTY - Rent</option>
+                         <option value="NAIROBICOUNTY - Single Business permit">NAIROBICOUNTY - Single Business permit</option>
+                    </optgroup>
+                    <optgroup label="National Construction Authority (NCA)">
+                        <option value="NCA - NCA Services">NCA - NCA Services</option>
+                    </optgroup>
+                    <optgroup label="National Hospital Insurance Fund (NHIF)">
+                        <option value="NHIF - NHIF Services">NHIF - NHIF Services</option>
+                    </optgroup>
+                    <optgroup label="National Social Security Fund (NSSF)">
+                        <option value="NSSF - NSSF Services">NSSF - NSSF Services</option>
+                    </optgroup>
+                   <optgroup label="Unclaimed Financial Assets Authority (UFAA)">
+                        <option value="UFAA - UFAA Enquiries">UFAA - UFAA Enquiries</option>
+                       <option value="UFAA - Filing an Asset Claim">UFAA - Filing an Asset Claim</option>
+                    </optgroup>
+                    <optgroup label="Kenya Universities and Colleges Central Placement Service (KUCCPS)">
+                        <option value="KUCCPS - University and College Placement">KUCCPS - University and College Placement</option>
+                    </optgroup>
+                    <optgroup label="Ministry of Labour">
+                        <option value="LABOUR - LABOUR Services (Group Registrations)">LABOUR - LABOUR Services (Group Registrations)</option>
+                    </optgroup>
+                    <optgroup label="Pensions Department">
+                        <option value="PENSIONS - PENSIONS Services">PENSIONS - PENSIONS Services</option>
+                    </optgroup>
+                    <optgroup label="Postal Corporation of Kenya">
+                        <option value="POSTA - Postal Services">POSTA - Postal Services</option>
+                    </optgroup>
+                    <optgroup label="JUDICIARY">
+                        <option value="JUDICIARY - E-filing Support">JUDICIARY - E-filing Support</option>
+                        <option value="JUDICIARY - Filing a New Civil Case">JUDICIARY - Filing a New Civil Case</option>
+                        <option value="JUDICIARY - General Case Enquiries">JUDICIARY - General Case Enquiries</option>
+                        <option value="JUDICIARY - Payment of Fines and Deposits">JUDICIARY - Payment of Fines and Deposits</option>
+                       <option value="JUDICIARY - Request and Issuance of Mention Dates">JUDICIARY - Request and Issuance of Mention Dates</option>
+                      <option value="JUDICIARY - Request for and Issuance of Summon/Notice/Decrees/Ruling/Orders">JUDICIARY - Request for and Issuance of Summon/Notice/Decrees/Ruling/Orders</option>
+                      <option value="JUDICIARY - Virtual Court Support">JUDICIARY - Virtual Court Support</option>
+                       </optgroup>
+                    <optgroup label="State Department for Public Service (SDPS)">
+                          <option value="SDPS - Counselling and Wellness">SDPS - Counselling and Wellness</option>
+                      </optgroup>
+                     <optgroup label="Higher Education Loans Board (HELB)">
+                        <option value="HELB - HELB Services">HELB - HELB Services</option>
+                     </optgroup>
+                    <optgroup label="CYBER">
+                     <option value="CYBER - CYBER Services">CYBER - CYBER Services</option>
+                    </optgroup>
+                    <optgroup label="Information Desk">
+                        <option value="INFODESK - Information Desk Service">INFODESK - Information Desk Service</option>
+                    </optgroup>
+                </select>
+                </div>
+            <button type="submit">Predict Demand</button>
+       </form>
+    </div>
+</body>
+</html>
+
