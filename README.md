@@ -1,6 +1,5 @@
 # Demand Prediction System for Huduma Center Makadara
 
-![image](https://github.com/user-attachments/assets/1b057679-9f32-49b9-81ec-399c8f3d32dd)
 
 ![image](https://github.com/user-attachments/assets/a31b99c5-e287-4a54-8823-0e9d75e4893d)
 
