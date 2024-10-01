@@ -21,7 +21,7 @@ The system uses machine learning models, specifically utilizes Random Forest Reg
   
 - Django-based user interface for easy management and insights.
 
-![image](https://github.com/user-attachments/assets/03c3ca41-8f83-4dd2-8935-b66c4a1a4ac3)
+![image](https://github.com/user-attachments/assets/c8fce275-69c9-416b-8710-cace604c741a)
 
 
 - Optimized for resource allocation and decision-making.
