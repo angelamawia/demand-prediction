@@ -3,7 +3,7 @@
 This project is a Python and Django-based system designed to predict demand for e-government services offered at Huduma Center Makadara. It assists center managers in planning and making data-driven decisions.
 
 ## Project Overview
-The system uses machine learning models, specifically utilizes Random Forest Regrssor Algorithm to predict demand for services like police clearance and other e-government services. The predictions help optimize resource allocation and improve service delivery.
+The system uses predictive model, specifically utilizes Random Forest Regressor Algorithm to predict demand for services like police clearance and other e-government services. The predictions help optimize resource allocation and improve service delivery.
 
 ![image](https://github.com/user-attachments/assets/a31b99c5-e287-4a54-8823-0e9d75e4893d)
 
