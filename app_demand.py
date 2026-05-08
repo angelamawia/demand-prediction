@@ -165,7 +165,8 @@ def build_top5_df(data):
 
 @st.cache_data
 def run_prophet(service_name, top5_df_json, forecast_quarters):
-    top5_df = pd.read_json(top5_df_json)
+    from io import StringIO
+    top5_df = pd.read_json(StringIO(top5_df_json))
     top5_df['ds'] = pd.to_datetime(top5_df['ds'])
 
     service_df = (top5_df[top5_df['servicename'] == service_name]
