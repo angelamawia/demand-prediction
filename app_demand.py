@@ -452,10 +452,13 @@ plt.close()
 # ─────────────────────────────────────────────
 st.markdown('<div class="section-title">📋 Forecast Details</div>', unsafe_allow_html=True)
 
-# Build quarter labels from last known period
+# Map month to quarter correctly
+month_to_quarter = {1:1, 2:1, 3:1, 4:2, 5:2, 6:2, 7:3, 8:3, 9:3, 10:4, 11:4, 12:4}
+
 last_year = int(last_known_date.strftime('%Y'))
-last_q    = int(last_known_date.strftime('%m')) // 3
-q_labels  = []
+last_q    = month_to_quarter[int(last_known_date.strftime('%m'))]
+
+q_labels = []
 for _ in range(forecast_quarters):
     last_q += 1
     if last_q > 4:
