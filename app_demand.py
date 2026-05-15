@@ -363,7 +363,6 @@ with st.spinner(f"Training Prophet model for {selected_display}..."):
     forecast, service_df = run_prophet(selected_service, top5_df.to_json(), forecast_quarters)
 
 last_known_date  = service_df['ds'].max()
-st.write(f"DEBUG - Last known date: {last_known_date}")
 future_forecast  = forecast[forecast['ds'] > last_known_date].head(forecast_quarters)
 hist_mean        = service_df['y'].mean()
 hist_std         = service_df['y'].std()
