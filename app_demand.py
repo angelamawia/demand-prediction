@@ -167,7 +167,7 @@ def build_top5_df(data):
 def run_prophet(service_name, top5_df_json, forecast_quarters):
     from io import StringIO
     top5_df = pd.read_json(StringIO(top5_df_json))
-    top5_df['ds'] = pd.to_datetime(top5_df['ds'])
+    top5_df['ds'] = pd.to_datetime(top5_df['ds'], unit='ms')
 
     service_df = (top5_df[top5_df['servicename'] == service_name]
                   [['ds','demand_count']]
@@ -363,6 +363,7 @@ with st.spinner(f"Training Prophet model for {selected_display}..."):
     forecast, service_df = run_prophet(selected_service, top5_df.to_json(), forecast_quarters)
 
 last_known_date  = service_df['ds'].max()
+st.write(f"DEBUG - Last known date: {last_known_date}")
 future_forecast  = forecast[forecast['ds'] > last_known_date].head(forecast_quarters)
 hist_mean        = service_df['y'].mean()
 hist_std         = service_df['y'].std()
