@@ -88,7 +88,7 @@ pip install -r requirements.txt
 ### 3. Run the Streamlit app locally
 
 ```bash
-streamlit run app.py
+streamlit run app_demand.py
 ```
 
 The app will open automatically at `http://localhost:8501`
