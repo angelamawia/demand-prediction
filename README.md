@@ -130,7 +130,7 @@ The dataset originates from the **Huduma Kenya SBA (Service By Appointment)** sy
 | `servicename` | Government service booked |
 | `year` | Year of booking (2020–2023) |
 
-> **Note:** The dataset is not included in this repository as it contains citizen booking data. Upload your own copy of `transformed_data.csv` via the dashboard sidebar.
+> **Note:** Upload your copy of `transformed_data.csv` from SBA system in Makandara Huduma Center via the dashboard sidebar.
 
 ---
 
