@@ -9,9 +9,6 @@ A data science project that forecasts quarterly demand for e-government services
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://demand-prediction-ycmm8eb8smd8dzuigzgvkt.streamlit.app/)
 
-> Replace the link above with your actual Streamlit Community Cloud URL after deployment.
-
----
 
 ## 🧭 Project Overview
 
