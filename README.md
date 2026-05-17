@@ -103,7 +103,7 @@ In the sidebar, upload the `transformed_data.csv` file from the Huduma Centre SB
 
 ## 📓 Notebook
 
-The `notebook.ipynb` file contains the complete step-by-step analysis including:
+The `demand-prediction.ipynb` file contains the complete step-by-step analysis including:
 
 - Data loading and exploration
 - Data cleaning and preprocessing
