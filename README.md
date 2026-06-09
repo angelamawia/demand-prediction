@@ -9,7 +9,7 @@ A data science project that forecasts quarterly demand for e-government services
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://demand-prediction-ycmm8eb8smd8dzuigzgvkt.streamlit.app/)
 
-> **📄 Published Paper:** [Read on ResearchGate](https://doi.org/10.13140/RG.2.2.13036.07042)  
+> **📄 Published Paper:** [Read on ResearchGate](https://www.researchgate.net/publication/387456579)  
 
 
 ## 🧭 Project Overview
