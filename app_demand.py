@@ -240,7 +240,7 @@ st.markdown("""
 if uploaded_file is None:
     st.markdown("""
     <div class="info-box">
-        📁 <strong>Getting Started:</strong> Upload your <code>transformed_data.csv</code> file
+        📁 <strong>Getting Started:</strong> Upload <code>transformed_data.csv</code> file from Github in demand-prediction repository located in data folder
         using the sidebar panel on the left to load the full dashboard.
     </div>
     """, unsafe_allow_html=True)
